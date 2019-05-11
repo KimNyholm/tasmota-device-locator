@@ -1,4 +1,4 @@
-# where-is-my-device
+# Tasmota device locator
 
 > Find devices on your network
 
