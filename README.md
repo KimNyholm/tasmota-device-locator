@@ -15,4 +15,4 @@ npm run dev
 npm run build
 ```
 
-For more introduction see [Tasmota](https://www.simplethings.work/en/faqs/sonoff-tasmato.html)
+For more information on Tasmota see [simpleThings](https://www.simplethings.work/en/faqs/sonoff-tasmato.html) and [Sonoff-Tasmota](https://github.com/arendst/Sonoff-Tasmota)
