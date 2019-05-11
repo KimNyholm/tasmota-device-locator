@@ -15,4 +15,4 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For more introduction see [Tasmota](https://www.simplethings.work/en/faqs/sonoff-tasmato.html)
