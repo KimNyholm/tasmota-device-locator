@@ -34,8 +34,9 @@ export class TasmotaDeviceClass {
 
 
   setConnectionState(state) {
-    if (this.connectionHandler && this.connected !== state) {
-      this.connectionHandler(ip, state);
+    console.log('setConnectionState', state, this)
+    if (this.connectionHandler) {
+      this.connectionHandler(this.ip, state);
     }
     this.connected = state;
   }
@@ -52,6 +53,7 @@ export class TasmotaDeviceClass {
                     (response) => {
                       console.log('error', response)
               this.setConnectionState(false);
+              console.log('error done')
             });
   }
 
