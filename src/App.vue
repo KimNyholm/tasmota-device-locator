@@ -66,10 +66,7 @@ export default {
   name: 'app',
   data () {
     return {
-      devices: [
-        {IP: "12.34.56.78", name: "name1", model: "model1"},
-        {IP: "12.34.56.79", name: "name1", model: "model1"}
-      ] ,
+      devices: null,
       subnet: null
     }
   },
@@ -81,9 +78,7 @@ export default {
     },
   methods: {
     update(subnet) {
-      console.log("update");
-      deviceList.populate(subnet)
-      this.devices = deviceList.devices;
+      this.devices = deviceList.populate(subnet)
     }
   }
 }
