@@ -79,6 +79,7 @@ export default {
   methods: {
     update(subnet) {
       this.devices = deviceList.populate(subnet)
+      deviceList.gatherInfo()
     }
   }
 }

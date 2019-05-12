@@ -30,8 +30,27 @@ const ipFirstNumber = ip => {
     return parseInt(first)
 }
 
+const startNext = () => {
+    console.log("checking ", _devices)
+    for (let ip in _devices) {
+        if (_devices.hasOwnProperty(ip)){
+            const device = _devices[ip];
+            console.log("checking ", device)
+            if (device.state === "created"){
+                device.tasmotaDevice.tryConnection();
+                device.state = "searching";
+            }
+        }
+    }
+}
+
 export default { 
-    populate(ipFirst) {
+
+    gatherInfo: () => {
+        startNext()
+    },
+
+    populate: ipFirst => {
         _devices = {};
         const base = ipBase(ipFirst);
         const first = ipFirstNumber(ipFirst);
@@ -46,5 +65,6 @@ export default {
 };
 
 const connectionHandler = (ip, state) => {
-
+    _devices[ip].state = state ? "Responing" : "No device";
+    startNext()
 }

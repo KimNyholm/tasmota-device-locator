@@ -40,10 +40,10 @@ export class TasmotaDeviceClass {
     this.connected = state;
   }
 
-  APIData(command) {
+  API(command) {
     var apiHost = this.ip;
     var url = 'http:////' + apiHost + '/' + command;
-    axios({url: url, method: GET})
+    axios({url: url, method: 'GET'})
             .then(
                     (response) => {
                       console.log('ok', response)
