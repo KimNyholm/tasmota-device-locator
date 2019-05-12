@@ -32,11 +32,11 @@
             <span class="md-helper-text">E.g. 192.168.0.100 will search upto 192.168.0.255</span>
            <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
            <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
-     </md-field>
+          </md-field>
         </md-card-content>
 
         <md-card-actions>
-        <md-button class="md-raised">Search</md-button>
+          <md-button v-if="$v.subnet.ipAddress && $v.subnet.required" v-on:click="update(subnet)" class="md-raised">Update</md-button>
         </md-card-actions>
       </md-ripple>
     </md-card>
@@ -79,12 +79,14 @@ export default {
         ipAddress
       }
     },
-    created() {
-    deviceList.populate('123.123.234.')
-    this.devices = deviceList.devices;
+  methods: {
+    update(subnet) {
+      console.log("update");
+      deviceList.populate(subnet)
+      this.devices = deviceList.devices;
+    }
   }
 }
-
 </script>
 <style  scoped>
   #app {

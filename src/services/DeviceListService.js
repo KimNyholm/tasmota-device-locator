@@ -17,11 +17,27 @@
 
 const TasmotaDeviceClass = require('./TasmotaDeviceClass').TasmotaDeviceClass;
 const _devices = [];
+
+const ipBase = ip => {
+    const lastDot = ip.lastIndexOf('.');
+    const base = ip.substring(0, lastDot+1);
+    return base
+}
+
+const ipFirstNumber = ip => {
+    const lastDot = ip.lastIndexOf('.');
+    const first = ip.substring(lastDot+1);
+    return parseInt(first)
+}
+
 export default { 
     devices:_devices,
-    populate(ipBase) {
-        for (let i = 1; i< 256; i++){
-            const ip = ipBase + i;
+    populate(ipFirst) {
+        _devices.length = 0;
+        const base = ipBase(ipFirst);
+        const first = ipFirstNumber(ipFirst);
+        for (let i = first; i< 256; i++){
+            const ip = base + i;
             const device = {IP: ip, type: 'Tasmota', state: 'created', name: 'unknown', model: 'unknown'}
             device.tasmotaDevice=new TasmotaDeviceClass(ip, connectionHandler);
             _devices.push(device)
