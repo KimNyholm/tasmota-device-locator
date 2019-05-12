@@ -16,35 +16,18 @@
 -->
 <template>
   <div>
-    <md-table>
-        <md-table-row >
-          <md-table-head>Device URL</md-table-head >
-          <md-table-head>State</md-table-head >
-          <md-table-head>Name</md-table-head >
-          <md-table-head>Model</md-table-head >
-        </md-table-row>
-        <md-table-row v-for="device in devices" 
-          v-bind:key="device.IP" >
-
-          <md-table-cell  >
-            <a :href="device.url">  {{device.url}} </a>
-          </md-table-cell>
-
-          <md-table-cell  >
-            {{device.state}}
-          </md-table-cell>
-
-          <md-table-cell  >
-            {{device.model}}
-          </md-table-cell>
-
-          <md-table-cell  >
-            {{device.model}}
-          </md-table-cell>
-
+     <md-table v-model="devices">
+        <md-table-empty-state
+          md-label="No devices found"
+          :md-description="`No devices found for this search. Try a different range or add devices to the network.`">
+        </md-table-empty-state>
+        <md-table-row slot="md-table-row" slot-scope="{ item }">
+          <md-table-cell md-label="Device URL" >{{ item.url }}</md-table-cell>
+          <md-table-cell md-label="State" md-sort-by="state">{{ item.state }}</md-table-cell>
+          <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+          <md-table-cell md-label="Model" md-sort-by="Model">{{ item.model }}</md-table-cell>
         </md-table-row>
     </md-table>
-
   </div>
 </template>
 

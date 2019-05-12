@@ -19,7 +19,7 @@
   <div id="app">
     <h1>Tasmota Device Locater</h1>
     <p >All information collected is kept within the browser</p>
-    <p >Locate your devices, when you don't know their IP addresses.</p>
+    <p >Locate your devices when you only know their subnet address.</p>
     <md-card md-with-hover>
       <md-ripple>
         <md-card-header>
@@ -36,15 +36,15 @@
         </md-card-content>
 
         <md-card-actions>
-          <md-button v-if="$v.subnet.ipAddress && $v.subnet.required" v-on:click="update(subnet)" class="md-raised">Update</md-button>
+          <md-button v-if="$v.subnet.ipAddress && $v.subnet.required" v-on:click="update(subnet)" class="md-raised">Search</md-button>
         </md-card-actions>
       </md-ripple>
     </md-card>
 
     <md-card >
-      <md-card-header>
-        <div class="md-title">Devices</div>
-      </md-card-header>
+        <md-card-header>
+          <div class="md-title">Devices</div>
+        </md-card-header>
       <md-card-content>
         <DeviceList
           v-bind:devices="devices" 
@@ -66,7 +66,7 @@ export default {
   name: 'app',
   data () {
     return {
-      devices: null,
+      devices: [],
       subnet: null
     }
   },

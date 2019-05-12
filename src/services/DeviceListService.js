@@ -16,7 +16,7 @@
 */
 
 const TasmotaDeviceClass = require('./TasmotaDeviceClass').TasmotaDeviceClass;
-let _devices = {};
+let _devices = [];
 
 const ipBase = ip => {
     const lastDot = ip.lastIndexOf('.');
@@ -31,17 +31,16 @@ const ipFirstNumber = ip => {
 }
 
 const startNext = () => {
-    for (let ip in _devices) {
-        if (_devices.hasOwnProperty(ip)){
-            const device = _devices[ip];
-            if (device.state === "created"){
-                device.tasmotaDevice.tryConnection();
-                device.state = "searching";
+    for (let i = 0; i<_devices.length; i++) {
+        const device = _devices[i];
+        if (device.state === "created"){
+            device.tasmotaDevice.tryConnection();
+            device.state = "searching";
 //                break;
-            }
         }
     }
 }
+
 
 export default { 
 
@@ -50,7 +49,7 @@ export default {
     },
 
     populate: ipFirst => {
-        _devices = {};
+        _devices = [];
         const base = ipBase(ipFirst);
         const first = ipFirstNumber(ipFirst);
         for (let i = first; i< 256; i++){
@@ -58,7 +57,7 @@ export default {
             const url = 'http://' + ip
             const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: 'unknown', model: 'unknown'}
             device.tasmotaDevice=new TasmotaDeviceClass(ip, connectionHandler);
-            _devices[ip] = device;
+            _devices.push(device);
         }
         return _devices;
     }
@@ -66,6 +65,12 @@ export default {
 
 const connectionHandler = (ip, state) => {
     console.log("connectionHandler", ip, state)
-    _devices[ip].state = state ? "Responing" : "No device";
+    for (let i = 0; i<_devices.length; i++) {
+        const device = _devices[i];
+        if (device.IP === ip){
+            device.state = state ? "Responing" : "No device";
+            break;
+        }
+    }
     startNext()
 }
