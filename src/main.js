@@ -26,6 +26,9 @@ import 'vue-material/dist/theme/default.css'
 
 Vue.use(VueMaterial)
 
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
+
 Vue.component("DeviceList", DeviceList);
 
 new Vue({

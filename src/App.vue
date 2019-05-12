@@ -27,10 +27,12 @@
         <md-card-content>
           <div class="md-subhead">All information collected is kept within the browser</div>
           <md-field>
-            <label>Subnet to search</label>
+            <label>First address to search in subnet</label>
             <md-input v-model="subnet" ></md-input>
-            <span class="md-helper-text">Enter your subnet (last byte shall be 0)</span>
-          </md-field>
+            <span class="md-helper-text">E.g. 192.168.0.100 will search upto 192.168.0.255</span>
+           <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
+           <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
+     </md-field>
         </md-card-content>
 
         <md-card-actions>
@@ -56,6 +58,8 @@
 
 <script>
 
+import { required, ipAddress } from 'vuelidate/lib/validators'
+
 const deviceList = require('./services/DeviceListService').default
 
 export default {
@@ -69,7 +73,13 @@ export default {
       subnet: null
     }
   },
-  created() {
+  validations: {
+      subnet: {
+        required,
+        ipAddress
+      }
+    },
+    created() {
     deviceList.populate('123.123.234.')
     this.devices = deviceList.devices;
   }
