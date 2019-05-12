@@ -31,15 +31,13 @@ const ipFirstNumber = ip => {
 }
 
 const startNext = () => {
-    console.log("checking ", _devices)
     for (let ip in _devices) {
         if (_devices.hasOwnProperty(ip)){
             const device = _devices[ip];
-            console.log("checking ", device)
             if (device.state === "created"){
                 device.tasmotaDevice.tryConnection();
                 device.state = "searching";
-                break;
+//                break;
             }
         }
     }

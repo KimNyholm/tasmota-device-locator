@@ -44,7 +44,7 @@ export class TasmotaDeviceClass {
   API(command) {
     var apiHost = this.ip;
     var url = 'http:////' + apiHost + '/' + command;
-    axios({url: url, method: 'GET'})
+    axios({url: url, method: 'GET', timeout:2000})
             .then(
                     (response) => {
                       console.log('ok', response)
