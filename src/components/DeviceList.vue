@@ -27,7 +27,7 @@
           v-bind:key="device.IP" >
 
           <md-table-cell  >
-            <a :href="device.IP">  {{device.IP}} </a>
+            <a :href="device.url">  {{device.url}} </a>
           </md-table-cell>
 
           <md-table-cell  >

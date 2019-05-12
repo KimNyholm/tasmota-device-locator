@@ -55,7 +55,8 @@ export default {
         const first = ipFirstNumber(ipFirst);
         for (let i = first; i< 256; i++){
             const ip = base + i;
-            const device = {IP: ip, type: 'Tasmota', state: 'created', name: 'unknown', model: 'unknown'}
+            const url = 'http://' + ip
+            const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: 'unknown', model: 'unknown'}
             device.tasmotaDevice=new TasmotaDeviceClass(ip, connectionHandler);
             _devices[ip] = device;
         }

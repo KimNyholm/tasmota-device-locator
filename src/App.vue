@@ -18,16 +18,16 @@
 <template>
   <div id="app">
     <h1>Tasmota Device Locater</h1>
+    <p >All information collected is kept within the browser</p>
+    <p >Locate your devices, when you don't know their IP addresses.</p>
     <md-card md-with-hover>
       <md-ripple>
         <md-card-header>
-          <div class="md-title">Specify subnet</div>
+          <div class="md-title">Specify subnet/start of IP range</div>
         </md-card-header>
 
         <md-card-content>
-          <div class="md-subhead">All information collected is kept within the browser</div>
           <md-field>
-            <label>First address to search in subnet</label>
             <md-input v-model="subnet" ></md-input>
             <span class="md-helper-text">E.g. 192.168.0.100 will search upto 192.168.0.255</span>
            <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
