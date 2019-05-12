@@ -50,11 +50,14 @@
       </md-card-content>
     </md-card>
     <p>More information on <a href="https://github.com/KimNyholm/tasmota-device-locater">github</a></p>
-    <p>Copyrigth (C) Kim Nyholm SL 2019</p>
+    <p>Copyrigth (C) Kim Nyholm 2019</p>
   </div>
 </template>
 
 <script>
+
+const deviceList = require('./services/DeviceListService').default
+
 export default {
   name: 'app',
   data () {
@@ -65,8 +68,13 @@ export default {
       ] ,
       subnet: null
     }
+  },
+  created() {
+    deviceList.populate('123.123.234.')
+    this.devices = deviceList.devices;
   }
 }
+
 </script>
 <style  scoped>
   #app {

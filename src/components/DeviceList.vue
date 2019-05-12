@@ -19,6 +19,7 @@
     <md-table>
         <md-table-row >
           <md-table-head>Device URL</md-table-head >
+          <md-table-head>State</md-table-head >
           <md-table-head>Name</md-table-head >
           <md-table-head>Model</md-table-head >
         </md-table-row>
@@ -27,6 +28,10 @@
 
           <md-table-cell  >
             <a :href="device.IP">  {{device.IP}} </a>
+          </md-table-cell>
+
+          <md-table-cell  >
+            {{device.state}}
           </md-table-cell>
 
           <md-table-cell  >
