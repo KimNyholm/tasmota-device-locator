@@ -36,7 +36,6 @@ const startNext = () => {
         if (device.state === "created"){
             device.tasmotaDevice.tryConnection();
             device.state = "searching";
-//                break;
         }
     }
 }
@@ -68,7 +67,7 @@ const connectionHandler = (ip, state) => {
     for (let i = 0; i<_devices.length; i++) {
         const device = _devices[i];
         if (device.IP === ip){
-            device.state = state ? "Responing" : "No device";
+            device.state = state ? "Responding" : "No device";
             break;
         }
     }
