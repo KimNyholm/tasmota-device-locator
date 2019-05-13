@@ -51,7 +51,7 @@ export default {
         _devices = [];
         const base = ipBase(ipFirst);
         const first = ipFirstNumber(ipFirst);
-        for (let i = first; i< 256; i++){
+        for (let i = first; i< 255; i++){
             const ip = base + i;
             const url = 'http://' + ip
             const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: 'unknown', model: 'unknown'}
@@ -62,14 +62,19 @@ export default {
     }
 };
 
-const connectionHandler = (ip, state) => {
-    console.log("connectionHandler", ip, state)
+const connectionHandler = (update, state) => {
+    console.log("connectionHandler", update, state)
     for (let i = 0; i<_devices.length; i++) {
         const device = _devices[i];
-        if (device.IP === ip){
-            device.state = state ? "Responding" : "No device";
+        if (device.IP === update.ip){
+            if (state){
+                device.state = "Responding";
+                device.name = update.name
+                device.model = update.model
+            } else {
+                device.state = "No device"
+            }
             break;
         }
     }
-    startNext()
 }

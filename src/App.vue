@@ -29,9 +29,9 @@
         <md-card-content>
           <md-field>
             <md-input v-model="subnet" ></md-input>
-            <span class="md-helper-text">E.g. 192.168.0.100 will search upto 192.168.0.255</span>
-           <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
-           <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
+            <span class="md-helper-text">E.g. 192.168.0.100 will search from<br>192.168.0.100 upto 192.168.0.255</span>
+            <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
+            <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
           </md-field>
         </md-card-content>
 

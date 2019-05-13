@@ -23,12 +23,29 @@ export class TasmotaDeviceClass {
     this.connected = false;
     this.trying = false;
     this.ip = ip;
+    this.name = 'unknown'
+    this.model = 'unknown'
   }
 
   tryConnection() {
     if (!this.trying) {
       this.trying = true;
-      this.API('api-version');
+      this.API('cm?&cmnd=Module')
+      .then(response => {
+        this.model = response.data.Module
+        console.log('model', this.model, response)
+        return this.API('cm?&cmnd=FriendlyName')
+      })
+      .then(response => {
+        this.name = response.data.FriendlyName1
+        this.setConnectionState(true)
+        console.log('name', this.name, response)
+        return Promise.resolve()
+      })
+      .catch((e) => {
+        this.setConnectionState(false)
+        console.log('error', e)
+      })
     }
   }
 
@@ -36,7 +53,7 @@ export class TasmotaDeviceClass {
   setConnectionState(state) {
     console.log('setConnectionState', state, this)
     if (this.connectionHandler) {
-      this.connectionHandler(this.ip, state);
+      this.connectionHandler(this, state);
     }
     this.connected = state;
   }
@@ -44,17 +61,7 @@ export class TasmotaDeviceClass {
   API(command) {
     var apiHost = this.ip;
     var url = 'http:////' + apiHost + '/' + command;
-    axios({url: url, method: 'GET', timeout:2000})
-            .then(
-                    (response) => {
-                      console.log('ok', response)
-              this.setConnectionState(true);
-            },
-                    (response) => {
-                      console.log('error', response)
-              this.setConnectionState(false);
-              console.log('error done')
-            });
+    return axios({url: url, method: 'GET', timeout:2000})
   }
 
 }
