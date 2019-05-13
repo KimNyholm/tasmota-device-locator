@@ -16,7 +16,10 @@
 */
 
 const TasmotaDeviceClass = require('./TasmotaDeviceClass').TasmotaDeviceClass;
-let _devices = [];
+let checklist = [];
+let tasmotas = [];
+let responses = 0;
+let deviceCount = 0;
 
 const ipBase = ip => {
     const lastDot = ip.lastIndexOf('.');
@@ -30,13 +33,10 @@ const ipFirstNumber = ip => {
     return parseInt(first)
 }
 
-const startNext = () => {
-    for (let i = 0; i<_devices.length; i++) {
-        const device = _devices[i];
-        if (device.state === "created"){
-            device.tasmotaDevice.tryConnection();
-            device.state = "searching";
-        }
+const startAll = () => {
+    for (let i = 0; i<checklist.length; i++) {
+        const device = checklist[i];
+        device.tasmotaDevice.tryConnection();
     }
 }
 
@@ -44,37 +44,42 @@ const startNext = () => {
 export default { 
 
     gatherInfo: () => {
-        startNext()
+        startAll()
     },
 
     populate: ipFirst => {
-        _devices = [];
+        checklist = [];
+        tasmotas = [];
+        responses = 0;
+        deviceCount = 0;
         const base = ipBase(ipFirst);
         const first = ipFirstNumber(ipFirst);
         for (let i = first; i< 255; i++){
+            deviceCount++
             const ip = base + i;
             const url = 'http://' + ip
-            const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: 'unknown', model: 'unknown'}
-            device.tasmotaDevice=new TasmotaDeviceClass(ip, connectionHandler);
-            _devices.push(device);
+            const device = {tasmotaDevice: new TasmotaDeviceClass(ip, tasmotaConnectionHandler)};
+            checklist.push(device);
         }
-        return _devices;
+        return tasmotas;
+    },
+
+    progress: () => {
+        let value = 0;
+        if (deviceCount >0) {
+            value = 100*responses / deviceCount
+        }
+        return value
     }
 };
 
-const connectionHandler = (update, state) => {
+const tasmotaConnectionHandler = (update, state) => {
+    responses++
     console.log("connectionHandler", update, state)
-    for (let i = 0; i<_devices.length; i++) {
-        const device = _devices[i];
-        if (device.IP === update.ip){
-            if (state){
-                device.state = "Responding";
-                device.name = update.name
-                device.model = update.model
-            } else {
-                device.state = "No device"
-            }
-            break;
-        }
+    if (state){
+        const ip = update.ip
+        const url = 'http://' + ip
+        const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: update.name, model: update.model}
+        tasmotas.push(device);
     }
 }
