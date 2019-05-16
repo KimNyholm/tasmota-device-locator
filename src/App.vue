@@ -23,24 +23,30 @@
     <md-card md-with-hover>
       <md-ripple>
         <md-card-header>
-          <div class="md-title">Specify subnet/start of IP range</div>
+          <div class="md-title">Specify an IP address in the subnet</div>
         </md-card-header>
 
         <md-card-content>
           <md-field>
             <md-input v-model="subnet" ></md-input>
-            <span class="md-helper-text">E.g. 192.168.0.100 will search from<br>192.168.0.100 upto 192.168.0.255</span>
+            <span class="md-helper-text">E.g. 192.168.0.123 will search from 192.168.0.0 upto 192.168.0.255</span>
             <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
             <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
           </md-field>
         </md-card-content>
 
         <md-card-actions>
-          <md-button v-if="$v.subnet.ipAddress && $v.subnet.required" v-on:click="update(subnet)" class="md-raised">Search</md-button>
+          <md-button v-if="$v.subnet.ipAddress && $v.subnet.required" 
+            v-on:click="update(subnet)" 
+            :disabled="searching"
+            class="md-raised">Search</md-button>
         </md-card-actions>
       </md-ripple>
     </md-card>
-
+   <md-progress-bar 
+      v-if="searching" 
+      md-mode="determinate" 
+      :md-value="progress"></md-progress-bar>
     <md-card >
         <md-card-header>
           <div class="md-title">Devices</div>
@@ -49,10 +55,17 @@
         <DeviceList
           v-bind:devices="devices" 
         ></DeviceList>
+        <DeviceSearch
+          v-bind:search="searching"
+          v-bind:subnet="subnet"
+          v-on:deviceFound="deviceFound"
+          v-on:searchStatus="searchStatus"
+        ></DeviceSearch>
       </md-card-content>
     </md-card>
     <p>More information on <a href="https://github.com/KimNyholm/tasmota-device-locater">github</a></p>
     <p>Copyrigth (C) Kim Nyholm 2019</p>
+    <p>{{newDevices}}</p>
   </div>
 </template>
 
@@ -60,14 +73,16 @@
 
 import { required, ipAddress } from 'vuelidate/lib/validators'
 
-const deviceList = require('./services/DeviceListService').default
-
 export default {
   name: 'app',
   data () {
     return {
+      count: 0,
       devices: [],
-      subnet: null
+      progress: 0,
+      newDevices: [],
+      subnet: '192.168.0.123',
+      searching: false
     }
   },
   validations: {
@@ -77,12 +92,27 @@ export default {
       }
     },
   methods: {
+
+    deviceFound(device){
+      this.devices.push(device)
+    },
+
     update(subnet) {
-      this.devices = deviceList.populate(subnet)
-      deviceList.gatherInfo()
+      if (!this.searching){
+        this.searching = true
+        this.devices = []
+      }
+    },
+
+    searchStatus(progress){
+      this.progress = progress
+      if (progress === 100) {
+        this.searching = false
+      } 
     }
   }
 }
+
 </script>
 <style  scoped>
   #app {

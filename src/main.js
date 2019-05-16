@@ -17,6 +17,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import DeviceList from './components/DeviceList'
+import DeviceSearch from './services/DeviceSearch'
 
 Vue.config.productionTip = false
 
@@ -30,6 +31,7 @@ import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 
 Vue.component("DeviceList", DeviceList);
+Vue.component("DeviceSearch", DeviceSearch);
 
 new Vue({
   el: '#app',
