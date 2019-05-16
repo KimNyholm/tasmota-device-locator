@@ -1,18 +1,29 @@
-# Tasmota device locator
+# hello-world
 
-> Find devices on your network
-
-## Build Setup
-
-``` bash
-# install dependencies
+## Project setup
+```
 npm install
+```
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-# build for production with minification
+### Compiles and minifies for production
+```
 npm run build
 ```
 
-For more information on Tasmota see [simpleThings](https://www.simplethings.work/en/faqs/sonoff-tasmato.html) and [Sonoff-Tasmota](https://github.com/arendst/Sonoff-Tasmota)
+### Run your tests
+```
+npm run test
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

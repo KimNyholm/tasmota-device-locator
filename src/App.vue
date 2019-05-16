@@ -97,7 +97,7 @@ export default {
       this.devices.push(device)
     },
 
-    update(subnet) {
+    update() {
       if (!this.searching){
         this.searching = true
         this.devices = []

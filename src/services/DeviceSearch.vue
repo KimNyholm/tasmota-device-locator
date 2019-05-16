@@ -33,7 +33,6 @@
 
     watch: {
       search: function () {
-        console.log("watch", this.search, this.subnet)
         if (this.search) {
           ++this.counter;
           this.populate(this.subnet)
@@ -56,7 +55,6 @@
       },
 
       populate: function(ipFirst) {
-        console.log(this)
           const base = this.ipBase(ipFirst);
           const first = 0
           this.counter = 0
@@ -64,7 +62,6 @@
           for (let i = first; i< 255; i++){
             this.total++
             const ip = base + i;
-            const url = 'http://' + ip
             const device = {tasmotaDevice: new TasmotaDeviceClass(ip, this.tasmotaConnectionHandler)};
             device.tasmotaDevice.tryConnection();
           }
@@ -72,7 +69,6 @@
 
       tasmotaConnectionHandler: function(update, state) {
         ++this.counter;
-        console.log("connectionHandler", this.counter, update, state)
         if (state){
             const ip = update.ip
             const url = 'http://' + ip
