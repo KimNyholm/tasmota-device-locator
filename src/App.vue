@@ -65,7 +65,6 @@
     </md-card>
     <p>More information on <a href="https://github.com/KimNyholm/tasmota-device-locater">github</a></p>
     <p>Copyrigth (C) Kim Nyholm 2019</p>
-    <p>{{newDevices}}</p>
   </div>
 </template>
 
@@ -80,7 +79,6 @@ export default {
       count: 0,
       devices: [],
       progress: 0,
-      newDevices: [],
       subnet: '192.168.0.123',
       searching: false
     }

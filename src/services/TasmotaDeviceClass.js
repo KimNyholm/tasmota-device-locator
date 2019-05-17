@@ -14,7 +14,7 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-import Vue from 'vue';
+
 const axios = require('axios');
 export class TasmotaDeviceClass {
 
@@ -33,25 +33,21 @@ export class TasmotaDeviceClass {
       this.API('cm?&cmnd=Module')
       .then(response => {
         this.model = response.data.Module
-        console.log('model', this.model, response)
         return this.API('cm?&cmnd=FriendlyName')
       })
       .then(response => {
         this.name = response.data.FriendlyName1
         this.setConnectionState(true)
-        console.log('name', this.name, response)
         return Promise.resolve()
       })
-      .catch((e) => {
+      .catch(() => {
         this.setConnectionState(false)
-        console.log('error', e)
       })
     }
   }
 
 
   setConnectionState(state) {
-    console.log('setConnectionState', state, this)
     if (this.connectionHandler) {
       this.connectionHandler(this, state);
     }

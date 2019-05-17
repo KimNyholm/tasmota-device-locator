@@ -1,29 +1,8 @@
-# hello-world
+# Tasmota Device Locator
 
-## Project setup
-```
-npm install
-```
+## Deployment
+The Tasmota Device Locator can be served by any static http server (not https).
+- Checkout the branch gh-pages.
+- Copy the files to the root of the web server
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
