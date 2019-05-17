@@ -15,6 +15,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
+<template>
+  <div v-if="false">suppress warning</div>
+</template>
+  
 <script>
 
   const TasmotaDeviceClass = require('./TasmotaDeviceClass').TasmotaDeviceClass
@@ -72,7 +76,7 @@
         if (state){
             const ip = update.ip
             const url = 'http://' + ip
-            const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: update.name, model: update.model}
+            const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: update.name, model: update.model, version: update.version}
             this.$emit('deviceFound', device);
         }
         this.$emit('searchStatus', ((100*this.counter) / this.total));

@@ -26,6 +26,7 @@
           <md-table-cell md-label="State" md-sort-by="state">{{ item.state }}</md-table-cell>
           <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
           <md-table-cell md-label="Model" md-sort-by="Model">{{ item.model }}</md-table-cell>
+          <md-table-cell md-label="Version" md-sort-by="Version">{{ item.version }}</md-table-cell>
         </md-table-row>
     </md-table>
   </div>

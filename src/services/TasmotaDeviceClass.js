@@ -25,6 +25,7 @@ export class TasmotaDeviceClass {
     this.ip = ip;
     this.name = 'unknown'
     this.model = 'unknown'
+    this.version = 'unknown'
   }
 
   tryConnection() {
@@ -37,6 +38,10 @@ export class TasmotaDeviceClass {
       })
       .then(response => {
         this.name = response.data.FriendlyName1
+        return this.API('cm?&cmnd=Status%202')
+      })
+      .then(response => {
+        this.version = response.data.StatusFWR.Version
         this.setConnectionState(true)
         return Promise.resolve()
       })
