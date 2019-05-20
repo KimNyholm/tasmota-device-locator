@@ -18,7 +18,7 @@
 <template>
   <div id="app">
     <h1>Tasmota Device Locater</h1>
-    <p >All information collected is kept within the browser</p>
+    <p >Any information collected is kept within the browser</p>
     <p >Locate your devices when you only know their subnet address.</p>
     <md-card md-with-hover>
       <md-ripple>
