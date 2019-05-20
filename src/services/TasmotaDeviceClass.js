@@ -39,12 +39,18 @@ export class TasmotaDeviceClass {
     return 'cm?cmnd='+command+credentials
   }
 
+  // Experimental, does not seem to be necessary.
+  wait(delay, response) {
+    return new Promise(resolve => {
+      setTimeout(() => resolve(response), delay)
+    })
+  }
+
   tryConnection() {
     if (!this.trying) {
       this.trying = true;
       this.API('Module')
       .then(response => {
-        console.log(response)
         this.model = getValue(response, 'data.Module')
         const warning = getValue(response, 'data.WARNING')
         this.state = 'OK'
@@ -53,10 +59,12 @@ export class TasmotaDeviceClass {
         }
         return this.API('FriendlyName')
       })
+      .then((response) => this.wait(1, response))
       .then(response => {
         this.name = getValue(response, 'data.FriendlyName1')
         return this.API('Status%202')
       })
+      .then((response) => this.wait(1, response))
       .then(response => {
         this.version = getValue(response, 'data.StatusFWR.Version')
         this.setConnectionState(true)

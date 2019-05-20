@@ -31,20 +31,28 @@
     data() {
       return {
           counter: 0,
-          total: 0
+          total: 0,
+          queue: [],
       };
     },
 
     watch: {
       search: function () {
         if (this.search) {
-          ++this.counter;
+          this.$emit('searchStatus', 0);
           this.populate(this.subnet)
         }
       }
     },
 
     methods: {
+
+      dequeue: function() {
+        if (this.queue.length){
+          const device = this.queue.shift()
+          device.tryConnection()
+        }
+      },
 
       ipBase: function(ip) {
         const lastDot = ip.lastIndexOf('.');
@@ -60,19 +68,26 @@
 
       populate: function(ipFirst) {
           const base = this.ipBase(ipFirst);
-          const first = 0
           this.counter = 0
           this.total = 0
-          for (let i = first; i< 255; i++){
+          for (let i = 0; i<255; i++){
             this.total++
             const ip = base + i;
-            const device = {tasmotaDevice: new TasmotaDeviceClass(ip, this.password, this.tasmotaConnectionHandler)};
-            device.tasmotaDevice.tryConnection();
+            const device = new TasmotaDeviceClass(ip, this.password, this.tasmotaConnectionHandler);
+            this.queue.push(device)
+          }
+          // Strange, sometimes a device is not found.
+          // Trying to reduce to 6 simultanious connections does not fix it.
+          // Best options seems to have a quick search and let user retry.
+          const simulationously = 256
+          for (let i=0; i<simulationously; i++){
+            setTimeout(this.dequeue, i*2000/simulationously);
           }
       },
 
       tasmotaConnectionHandler: function(update, state) {
-        ++this.counter;
+        this.dequeue()
+        this.counter++
         if (state){
             const ip = update.ip
             const url = 'http://' + ip

@@ -18,8 +18,8 @@
 <template>
   <div id="app">
     <h1>Tasmota Device Locater</h1>
-    <p >Any information collected is kept within the browser</p>
     <p >Locate your devices when you only know their subnet address.</p>
+    <p >If device does not show up, it may help to search again.</p>
     <md-card md-with-hover>
       <md-ripple>
         <md-card-header>
@@ -29,7 +29,7 @@
         <md-card-content>
           <md-field>
             <md-input v-model="subnet" placeholder="ip"></md-input>
-            <span class="md-helper-text">E.g. 192.168.0.123 will search from 192.168.0.0 upto 192.168.0.255</span>
+            <span class="md-helper-text">E.g. 192.168.0.123 will search from 192.168.0.0 upto 192.168.0.254</span>
             <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
             <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
           </md-field>
@@ -68,6 +68,7 @@
         ></DeviceSearch>
       </md-card-content>
     </md-card>
+    <p>Any information collected is kept within the browser</p>
     <p>More information on <a href="https://github.com/KimNyholm/tasmota-device-locater">github</a></p>
     <p>Copyrigth (C) Kim Nyholm 2019</p>
   </div>
