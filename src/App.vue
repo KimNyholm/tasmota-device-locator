@@ -34,7 +34,7 @@
             <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
           </md-field>
           <md-field>
-            <md-input v-model="password" placeholder="Password" ></md-input>
+            <md-input v-model="password" type="password" placeholder="Password" ></md-input>
             <span class="md-helper-text">Leave empty if no password is required</span>
           </md-field>
         </md-card-content>
