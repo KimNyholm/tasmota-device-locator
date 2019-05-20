@@ -26,7 +26,7 @@
   export default {
     
     name: 'DeviceSearch',
-    props: ['search', 'subnet'],
+    props: ['search', 'subnet', 'password'],
 
     data() {
       return {
@@ -66,7 +66,7 @@
           for (let i = first; i< 255; i++){
             this.total++
             const ip = base + i;
-            const device = {tasmotaDevice: new TasmotaDeviceClass(ip, this.tasmotaConnectionHandler)};
+            const device = {tasmotaDevice: new TasmotaDeviceClass(ip, this.password, this.tasmotaConnectionHandler)};
             device.tasmotaDevice.tryConnection();
           }
       },

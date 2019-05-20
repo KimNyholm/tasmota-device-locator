@@ -19,33 +19,43 @@ const getValue = require('get-value')
 const axios = require('axios');
 export class TasmotaDeviceClass {
 
-  constructor(ip, connectionHandler) {
+  constructor(ip, password, connectionHandler) {
     this.connectionHandler = connectionHandler;
     this.connected = false;
     this.trying = false;
     this.ip = ip;
+    this.password = password
     this.name = 'unknown'
     this.model = 'unknown'
     this.version = 'unknown'
     this.state = 'unknown'
   }
 
+  buildCommand(command) {
+    let credentials = ''
+    if (this.password) {
+      credentials = '&user=admin&password=' + this.password
+    }
+    return 'cm?cmnd='+command+credentials
+  }
+
   tryConnection() {
     if (!this.trying) {
       this.trying = true;
-      this.API('cm?&cmnd=Module')
+      this.API('Module')
       .then(response => {
+        console.log(response)
         this.model = getValue(response, 'data.Module')
         const warning = getValue(response, 'data.WARNING')
         this.state = 'OK'
         if (warning) {
           this.state = 'Password protected'
         }
-        return this.API('cm?&cmnd=FriendlyName')
+        return this.API('FriendlyName')
       })
       .then(response => {
         this.name = getValue(response, 'data.FriendlyName1')
-        return this.API('cm?&cmnd=Status%202')
+        return this.API('Status%202')
       })
       .then(response => {
         this.version = getValue(response, 'data.StatusFWR.Version')
@@ -68,7 +78,7 @@ export class TasmotaDeviceClass {
 
   API(command) {
     var apiHost = this.ip;
-    var url = 'http:////' + apiHost + '/' + command;
+    var url = 'http:////' + apiHost + '/' + this.buildCommand(command);
     return axios({url: url, method: 'GET', timeout:2000})
   }
 

@@ -28,10 +28,14 @@
 
         <md-card-content>
           <md-field>
-            <md-input v-model="subnet" ></md-input>
+            <md-input v-model="subnet" placeholder="ip"></md-input>
             <span class="md-helper-text">E.g. 192.168.0.123 will search from 192.168.0.0 upto 192.168.0.255</span>
             <div class="error" v-if="!$v.subnet.ipAddress">IP is not valid</div>
             <div class="error" v-else-if="!$v.subnet.required">IP is missing</div>
+          </md-field>
+          <md-field>
+            <md-input v-model="password" placeholder="Password" ></md-input>
+            <span class="md-helper-text">Leave empty if no password is required</span>
           </md-field>
         </md-card-content>
 
@@ -58,6 +62,7 @@
         <DeviceSearch
           v-bind:search="searching"
           v-bind:subnet="subnet"
+          v-bind:password="password"
           v-on:deviceFound="deviceFound"
           v-on:searchStatus="searchStatus"
         ></DeviceSearch>
@@ -80,6 +85,7 @@ export default {
       devices: [],
       progress: 0,
       subnet: '',
+      password: '',
       searching: false
     }
   },
