@@ -76,7 +76,7 @@
         if (state){
             const ip = update.ip
             const url = 'http://' + ip
-            const device = {IP: ip, url: url, type: 'Tasmota', state: 'created', name: update.name, model: update.model, version: update.version}
+            const device = {IP: ip, url: url, type: 'Tasmota', state: update.state, name: update.name, model: update.model, version: update.version}
             this.$emit('deviceFound', device);
         }
         this.$emit('searchStatus', ((100*this.counter) / this.total));

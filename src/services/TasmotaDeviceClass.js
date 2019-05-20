@@ -15,6 +15,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+const getValue = require('get-value')
 const axios = require('axios');
 export class TasmotaDeviceClass {
 
@@ -26,6 +27,7 @@ export class TasmotaDeviceClass {
     this.name = 'unknown'
     this.model = 'unknown'
     this.version = 'unknown'
+    this.state = 'unknown'
   }
 
   tryConnection() {
@@ -33,15 +35,20 @@ export class TasmotaDeviceClass {
       this.trying = true;
       this.API('cm?&cmnd=Module')
       .then(response => {
-        this.model = response.data.Module
+        this.model = getValue(response, 'data.Module')
+        const warning = getValue(response, 'data.WARNING')
+        this.state = 'OK'
+        if (warning) {
+          this.state = 'Password protected'
+        }
         return this.API('cm?&cmnd=FriendlyName')
       })
       .then(response => {
-        this.name = response.data.FriendlyName1
+        this.name = getValue(response, 'data.FriendlyName1')
         return this.API('cm?&cmnd=Status%202')
       })
       .then(response => {
-        this.version = response.data.StatusFWR.Version
+        this.version = getValue(response, 'data.StatusFWR.Version')
         this.setConnectionState(true)
         return Promise.resolve()
       })
