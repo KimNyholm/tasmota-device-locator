@@ -4,7 +4,7 @@ Locate Tasmota Devices on your network when you only know the subnet of the devi
 The search is done with javascript in a browser and no software installation is required.
 Only newer devices with CORS support will be found.
 
-![Tasmota Device Locator](doc/TasmotaDeviceLocator.png)
+
 
 ## Usage
 
