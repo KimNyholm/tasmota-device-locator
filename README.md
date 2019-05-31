@@ -22,3 +22,6 @@ If you want to run your own server, the [Tasmota Device Locator](https://github.
 
 ## Development
 Sources can be found on github, [Tasmota Device Locator](https://github.com/KimNyholm/tasmota-device-locator).
+
+## Sonoff devices preinstalled with Tasmota
+If you don't want to flash your Sonoff yourself you can get them at [simpleThings.work](https://www.simplethings.work/en/19-tasmato).
