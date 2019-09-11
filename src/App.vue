@@ -17,7 +17,7 @@
 
 <template>
   <div id="app">
-    <h1>Tasmota Device Locater</h1>
+    <h1>Tasmota Device Locator</h1>
     <p >Locate your devices when you only know their subnet address.</p>
     <p >If device does not show up, it may help to search again.</p>
     <md-card md-with-hover>
