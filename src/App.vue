@@ -18,7 +18,7 @@
 <template>
   <div id="app">
     <h1>Tasmota Device Locator</h1>
-    <p >Locate your devices when you only know their subnet address.</p>
+    <p >Locate your devices when you only know their subnet address</p>
     <p >If device does not show up, it may help to search again.</p>
     <md-card md-with-hover>
       <md-ripple>
@@ -68,8 +68,9 @@
         ></DeviceSearch>
       </md-card-content>
     </md-card>
-    <p>Any information collected is kept within the browser</p>
-    <p>More information on <a href="https://github.com/KimNyholm/tasmota-device-locator">github</a></p>
+    <p> Note: Only Tasmota devices with CORS enabled will be found. CORS is enabled by default for Tasmota version before 7. For Tasmota version 7 CORS is default disabled.</p>
+    <p>Any information collected is kept within the browser. No information is sent to the server.</p>
+    <p>More information and source on <a href="https://github.com/KimNyholm/tasmota-device-locator">github</a></p>
     <p>Copyrigth (C) Kim Nyholm 2019</p>
   </div>
 </template>

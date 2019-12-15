@@ -12,6 +12,8 @@ Enter any ip address in the subnet and it will search for devices on the whole s
 
 If the devices are password protected also enter the password. The password will be tried on all devices. If they have different passwords, more searches must be done.
 
+Only Tasmota devices with CORS enabled will be found. CORS is enabled by default for Tasmota version before 7. For Tasmota version 7 CORS is default disabled.
+
 ## Run the live version
 The live version can be found [here](http://tasmota.simplethings.work)
 
