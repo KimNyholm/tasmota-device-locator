@@ -14,9 +14,6 @@ If the devices are password protected also enter the password. The password will
 
 Only Tasmota devices with CORS enabled will be found. CORS is enabled by default for Tasmota version before 7. For Tasmota version 7 CORS is default disabled.
 
-## Run the live version
-The live version can be found [here](http://tasmota.simplethings.work)
-
 ## Deployment
 If you want to run your own server, the [Tasmota Device Locator](https://github.com/KimNyholm/tasmota-device-locator) can be served by any static http server (not https).
 - Checkout the branch gh-pages.
@@ -24,9 +21,6 @@ If you want to run your own server, the [Tasmota Device Locator](https://github.
 
 ## Development
 Sources can be found on github, [Tasmota Device Locator](https://github.com/KimNyholm/tasmota-device-locator).
-
-## Devices preinstalled with Tasmota
-If you don't want to flash your devices yourself, you can get them at [simpleThings.work](https://www.simplethings.work/en/19-tasmota).
 
 ## Issues and new features
 Please make an issue if you find a bug or have a suggestion for enhancement. Pull requests are also welcome.
