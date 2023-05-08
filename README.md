@@ -1,3 +1,7 @@
+# Obsoleted repository
+
+This repository is no longer maintained.
+
 # Tasmota Device Locator
 
 Locate Tasmota Devices on your network when you only know the subnet of the device.
